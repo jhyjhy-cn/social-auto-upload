@@ -21,7 +21,7 @@ def get_browser_options():
         ]
     }
     # 如果用户在 conf.py 里配置了本地 Chrome，就用本地的，这样成功率极高
-    if LOCAL_CHROME_PATH:
+    if LOCAL_CHROME_PATH and Path(LOCAL_CHROME_PATH).exists():
         options['executable_path'] = LOCAL_CHROME_PATH
 
     return options

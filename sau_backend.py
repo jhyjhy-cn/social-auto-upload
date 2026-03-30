@@ -1,6 +1,7 @@
 import asyncio
 import os
 import sqlite3
+import sys
 import threading
 import time
 import uuid
@@ -22,27 +23,38 @@ CORS(app)
 # 限制上传文件大小为160MB
 app.config['MAX_CONTENT_LENGTH'] = 160 * 1024 * 1024
 
-# 获取当前目录（假设 index.html 和 assets 在这里）
-current_dir = os.path.dirname(os.path.abspath(__file__))
+# 获取当前目录（打包后从 exe 所在目录查找前端文件）
+if getattr(sys, 'frozen', False):
+    current_dir = os.path.dirname(sys.executable)
+    print(f"[frozen] current_dir={current_dir}")
+else:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    print(f"[dev] current_dir={current_dir}")
 
-# 处理所有静态资源请求（未来打包用）
-@app.route('/assets/<filename>')
+# 处理所有静态资源请求
+@app.route('/assets/<path:filename>')
 def custom_static(filename):
-    return send_from_directory(os.path.join(current_dir, 'assets'), filename)
+    return send_from_directory(str(Path(current_dir) / 'assets'), filename)
 
-# 处理 favicon.ico 静态资源（未来打包用）
+# 处理 favicon.ico 静态资源
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(current_dir, 'assets'), 'vite.svg')
+    return send_from_directory(str(Path(current_dir) / 'assets'), 'vite.svg')
 
 @app.route('/vite.svg')
 def vite_svg():
-    return send_from_directory(os.path.join(current_dir, 'assets'), 'vite.svg')
+    return send_from_directory(str(Path(current_dir) / 'assets'), 'vite.svg')
 
-# （未来打包用）
+# 首页
 @app.route('/')
-def index():  # put application's code here
-    return send_from_directory(current_dir, 'index.html')
+def index():
+    index_path = Path(current_dir) / 'index.html'
+    print(f"[index] looking for: {index_path}, exists: {index_path.exists()}")
+    if index_path.exists():
+        with open(str(index_path), 'r', encoding='utf-8') as f:
+            from flask import Response
+            return Response(f.read(), mimetype='text/html')
+    return 'Frontend not found. Please build the frontend first.', 404
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

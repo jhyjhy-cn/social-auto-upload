@@ -27,8 +27,8 @@ if (Test-Path $FrontendDir) {
 }
 
 # 3. 清理旧的构建产物
-if (Test-Path "dist") { Remove-Item -Recurse -Force "dist" }
-if (Test-Path "build") { Remove-Item -Recurse -Force "build" }
+if (Test-Path "dist") { Remove-Item -Recurse -Force "dist" -ErrorAction SilentlyContinue }
+if (Test-Path "build") { Remove-Item -Recurse -Force "build" -ErrorAction SilentlyContinue }
 
 # 4. 收集需要打包的数据文件（仅非 Python 资源）
 $DataArgs = @()
@@ -70,14 +70,26 @@ pyinstaller --onefile `
     @DataArgs `
     sau_backend.py
 
-# 6. 检查结果
+# 6. 复制前端文件到 dist 目录
+if (Test-Path $DistDir) {
+    Write-Host "===== 复制前端文件 =====" -ForegroundColor Green
+    if (Test-Path "$DistDir\index.html") {
+        Copy-Item "$DistDir\index.html" "dist\" -Force
+    }
+    if (Test-Path "$DistDir\assets") {
+        Copy-Item "$DistDir\assets" "dist\assets" -Recurse -Force
+    }
+}
+
+# 7. 检查结果
 $ExePath = Join-Path $ProjectDir "dist\sau_backend.exe"
 if (Test-Path $ExePath) {
     $Size = (Get-Item $ExePath).Length / 1MB
     Write-Host ""
     Write-Host "===== 打包成功 =====" -ForegroundColor Green
-    Write-Host "输出文件: $ExePath" -ForegroundColor Cyan
-    Write-Host ("文件大小: {0:N1} MB" -f $Size) -ForegroundColor Cyan
+    Write-Host "输出目录: $(Join-Path $ProjectDir 'dist')" -ForegroundColor Cyan
+    Write-Host ("exe 大小: {0:N1} MB" -f $Size) -ForegroundColor Cyan
+    Write-Host "启动 sau_backend.exe 后访问 http://127.0.0.1:5409" -ForegroundColor Yellow
 } else {
     Write-Host "===== 打包失败 =====" -ForegroundColor Red
     exit 1
