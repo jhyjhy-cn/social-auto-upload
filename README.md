@@ -6,20 +6,51 @@
 
 <img src="media/show/tkupload.gif" alt="tiktok show" width="800"/>
 
+## 命令
+
+```
+  python -m venv .venv
+  激活虚拟环境：
+
+  # Windows (bash shell)
+  source .venv/Scripts/activate
+
+  # Windows (CMD)
+  .venv\Scripts\activate
+
+  # Linux / macOS
+  source .venv/bin/activate
+
+  退出虚拟环境：
+  deactivate
+```
+
 ## 目录
 
-- [💡 功能特性](#💡功能特性)
-- [💾 安装指南](#💾安装指南)
-- [🤖 AI Agent](#🤖ai-agent)
-- [🏁 快速开始](#🏁快速开始)
-- [🗂️ 重构计划](#🗂️重构计划)
-- [📣 近况说明](#📣近况说明)
-- [🐇 项目背景](#🐇项目背景)
-- [📃 详细文档](#📃详细文档)
-- [🐾 交流与支持](#🐾交流与支持)
-- [🤝 贡献指南](#🤝贡献指南)
-- [📜 许可证](#📜许可证)
-- [⭐ Star History](#⭐Star-History)
+- [social-auto-upload](#social-auto-upload)
+  - [命令](#命令)
+  - [目录](#目录)
+  - [💡功能特性](#功能特性)
+    - [AI这么强，为什么还需要这个项目](#ai这么强为什么还需要这个项目)
+  - [💾安装指南](#安装指南)
+    - [自己上手使用](#自己上手使用)
+    - [AGENT](#agent)
+    - [补充说明：](#补充说明)
+  - [📣近况说明](#近况说明)
+  - [🗂️重构计划](#️重构计划)
+  - [🏁快速开始](#快速开始)
+    - [方式 1：使用 CLI](#方式-1使用-cli)
+    - [方式 2：使用 examples](#方式-2使用-examples)
+  - [🐇项目背景](#项目背景)
+  - [📃详细文档](#详细文档)
+  - [🐾交流与支持](#交流与支持)
+    - [Creator](#creator)
+    - [Active Core Team](#active-core-team)
+  - [🤝贡献指南](#贡献指南)
+  - [🙏致谢](#致谢)
+  - [📜许可证](#许可证)
+  - [⭐Star-History](#star-history)
+  - [Community](#community)
 
 ## 💡功能特性
 
