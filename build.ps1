@@ -67,10 +67,12 @@ pyinstaller --onefile `
     --name sau_backend `
     --clean `
     --paths $ProjectDir `
+    --collect-all playwright `
+    --collect-all patchright `
     @DataArgs `
     sau_backend.py
 
-# 6. 复制前端文件到 dist 目录
+# 6. 复制前端文件和运行时资源到 dist 目录
 if (Test-Path $DistDir) {
     Write-Host "===== 复制前端文件 =====" -ForegroundColor Green
     if (Test-Path "$DistDir\index.html") {
@@ -78,6 +80,14 @@ if (Test-Path $DistDir) {
     }
     if (Test-Path "$DistDir\assets") {
         Copy-Item "$DistDir\assets" "dist\assets" -Recurse -Force
+    }
+}
+
+# 复制运行时需要的资源文件（conf.py 中 BASE_DIR 指向 exe 所在目录）
+Write-Host "===== 复制运行时资源 =====" -ForegroundColor Green
+foreach ($dir in @("utils", "media")) {
+    if (Test-Path $dir) {
+        Copy-Item $dir "dist\$dir" -Recurse -Force
     }
 }
 

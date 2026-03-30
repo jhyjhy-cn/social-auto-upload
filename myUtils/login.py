@@ -7,24 +7,7 @@ from myUtils.auth import check_cookie
 from utils.base_social_media import set_init_script
 import uuid
 from pathlib import Path
-from conf import BASE_DIR, LOCAL_CHROME_HEADLESS, LOCAL_CHROME_PATH
-
-# 统一获取浏览器启动配置（防风控+引入本地浏览器）
-def get_browser_options():
-    options = {
-        'headless': LOCAL_CHROME_HEADLESS,
-        'args': [
-            '--disable-blink-features=AutomationControlled',  # 核心防爬屏蔽：去掉 window.navigator.webdriver 标签
-            '--lang=zh-CN',
-            '--disable-infobars',
-            '--start-maximized'
-        ]
-    }
-    # 如果用户在 conf.py 里配置了本地 Chrome，就用本地的，这样成功率极高
-    if LOCAL_CHROME_PATH and Path(LOCAL_CHROME_PATH).exists():
-        options['executable_path'] = LOCAL_CHROME_PATH
-
-    return options
+from conf import BASE_DIR, LOCAL_CHROME_HEADLESS, LOCAL_CHROME_PATH, get_browser_options
 
 # 抖音登录
 async def douyin_cookie_gen(id,status_queue):
