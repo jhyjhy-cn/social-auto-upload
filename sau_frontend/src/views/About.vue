@@ -3,7 +3,7 @@
     <el-card class="about-card">
       <div class="about-header">
         <h1>自媒体自动化运营系统</h1>
-        <p class="version">social-auto-upload</p>
+        <p class="version">作者VX: jhyjhy_cn</p>
       </div>
 
       <el-divider />
@@ -37,7 +37,7 @@
         </ul>
       </div>
 
-      <div class="about-section">
+      <!-- <div class="about-section">
         <h3>技术栈</h3>
         <div class="tech-tags">
           <el-tag effect="plain">Vue 3</el-tag>
@@ -47,7 +47,7 @@
           <el-tag effect="plain">Playwright</el-tag>
           <el-tag effect="plain">SQLite</el-tag>
         </div>
-      </div>
+      </div> -->
     </el-card>
   </div>
 </template>

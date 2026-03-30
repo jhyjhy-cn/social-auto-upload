@@ -532,9 +532,9 @@ const batchPublishType = ref('info')
 // 平台列表 - 对应后端type字段
 const platforms = [
   { key: 3, name: '抖音' },
-  { key: 4, name: '快手' },
-  { key: 2, name: '视频号' },
-  { key: 1, name: '小红书' }
+  // { key: 4, name: '快手' },
+  // { key: 2, name: '视频号' },
+  // { key: 1, name: '小红书' }
 ]
 
 const defaultTabInit = {
@@ -543,7 +543,7 @@ const defaultTabInit = {
   fileList: [], // 后端返回的文件名列表
   displayFileList: [], // 用于显示的文件列表
   selectedAccounts: [], // 选中的账号ID列表
-  selectedPlatform: 1, // 选中的平台（单选）
+  selectedPlatform: 3, // 选中的平台（单选）
   title: '',
   productLink: '', // 商品链接
   productTitle: '', // 商品名称

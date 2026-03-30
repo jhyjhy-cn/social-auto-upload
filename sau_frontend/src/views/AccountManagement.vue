@@ -6,7 +6,7 @@
     
     <div class="account-tabs">
       <el-tabs v-model="activeTab" class="account-tabs-nav">
-        <el-tab-pane label="全部" name="all">
+        <!-- <el-tab-pane label="全部" name="all">
           <div class="account-list-container">
             <div class="account-search">
               <el-input
@@ -74,9 +74,9 @@
               <el-empty description="暂无账号数据" />
             </div>
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
         
-        <el-tab-pane label="快手" name="kuaishou">
+        <!-- <el-tab-pane label="快手" name="kuaishou">
           <div class="account-list-container">
             <div class="account-search">
               <el-input
@@ -144,7 +144,7 @@
               <el-empty description="暂无快手账号数据" />
             </div>
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
         
         <el-tab-pane label="抖音" name="douyin">
           <div class="account-list-container">
@@ -216,7 +216,7 @@
           </div>
         </el-tab-pane>
         
-        <el-tab-pane label="视频号" name="channels">
+        <!-- <el-tab-pane label="视频号" name="channels">
           <div class="account-list-container">
             <div class="account-search">
               <el-input
@@ -284,9 +284,9 @@
               <el-empty description="暂无视频号账号数据" />
             </div>
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
         
-        <el-tab-pane label="小红书" name="xiaohongshu">
+        <!-- <el-tab-pane label="小红书" name="xiaohongshu">
           <div class="account-list-container">
             <div class="account-search">
               <el-input
@@ -354,7 +354,7 @@
               <el-empty description="暂无小红书账号数据" />
             </div>
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
     
@@ -375,10 +375,10 @@
             style="width: 100%"
             :disabled="dialogType === 'edit' || sseConnecting"
           >
-            <el-option label="快手" value="快手" />
+            <!-- <el-option label="快手" value="快手" /> -->
             <el-option label="抖音" value="抖音" />
-            <el-option label="视频号" value="视频号" />
-            <el-option label="小红书" value="小红书" />
+            <!-- <el-option label="视频号" value="视频号" />
+            <el-option label="小红书" value="小红书" /> -->
           </el-select>
         </el-form-item>
         <el-form-item label="名称" prop="name">
@@ -441,7 +441,8 @@ const accountStore = useAccountStore()
 const appStore = useAppStore()
 
 // 当前激活的标签页
-const activeTab = ref('all')
+// const activeTab = ref('all')
+const activeTab = ref('douyin')
 
 // 搜索关键词
 const searchKeyword = ref('')
@@ -590,7 +591,7 @@ const accountFormRef = ref(null)
 const accountForm = reactive({
   id: null,
   name: '',
-  platform: '',
+  platform: '抖音',
   status: '正常'
 })
 
