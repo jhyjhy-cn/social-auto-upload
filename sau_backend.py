@@ -713,5 +713,35 @@ def sse_stream(status_queue):
             # 避免 CPU 占满
             time.sleep(0.1)
 
+def init_db():
+    """确保数据库和目录存在"""
+    db_dir = Path(BASE_DIR / "db")
+    db_dir.mkdir(parents=True, exist_ok=True)
+    db_path = db_dir / "database.db"
+    if not db_path.exists():
+        conn = sqlite3.connect(str(db_path))
+        cursor = conn.cursor()
+        cursor.execute('''CREATE TABLE IF NOT EXISTS user_info (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            type INTEGER NOT NULL,
+            filePath TEXT NOT NULL,
+            userName TEXT NOT NULL,
+            status INTEGER DEFAULT 0
+        )''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS file_records (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            filename TEXT NOT NULL,
+            filesize REAL,
+            upload_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+            file_path TEXT
+        )''')
+        conn.commit()
+        conn.close()
+        print("数据库初始化成功")
+    # 确保其他必要目录存在
+    for d in ["videoFile", "cookiesFile"]:
+        Path(BASE_DIR / d).mkdir(parents=True, exist_ok=True)
+
 if __name__ == '__main__':
+    init_db()
     app.run(host='0.0.0.0' ,port=5409)
