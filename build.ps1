@@ -1,4 +1,4 @@
-# build.ps1 - social-auto-upload 打包脚本
+﻿# build.ps1 - social-auto-upload 打包脚本
 
 $ErrorActionPreference = "Stop"
 $ProjectDir = Split-Path -Parent $MyInvocation.MyCommand.Path
